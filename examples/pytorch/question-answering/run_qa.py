@@ -20,10 +20,18 @@ Fine-tuning the library models for question answering using a slightly adapted v
 
 import logging
 import os
+os.environ["WANDB_DISABLED"] = "true"
 import sys
 import warnings
 from dataclasses import dataclass, field
 from typing import Optional
+
+one_iter_tool_package = "transformer"
+from capture import insert_capture
+try:
+    import torch_dipu
+except:
+    pass
 
 import datasets
 import evaluate
@@ -644,6 +652,8 @@ def main():
         post_process_function=post_processing_function,
         compute_metrics=compute_metrics,
     )
+
+    insert_capture(trainer)
 
     # Training
     if training_args.do_train:
