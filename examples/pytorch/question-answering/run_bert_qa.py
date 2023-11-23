@@ -8,7 +8,6 @@ def main():
     parser.add_argument("--output_dir", type=str, default="./one_iter_data/workdirs_bert", help="Output directory")
     args = parser.parse_args()
     
-    os.environ["HF_HOME"] = '/mnt/lustre/share_data/platform_ci/huggingface'
     current_working_directory = os.path.dirname(os.path.abspath(__file__))
     model_name_or_path = "bert-base-uncased"
     dataset_name = "squad"
