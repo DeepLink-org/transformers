@@ -28,9 +28,16 @@ from typing import Optional
 
 one_iter_tool_package = "transformer"
 from capture import insert_capture
+import os
+python_path = os.environ.get('PYTHONPATH')
+print(f"The value of PYTHONPATH in the script is: {python_path}")
 try:
     import torch_dipu
+    print("dipu导入成功")
 except:
+    print("*"*50)
+    print("dipu导入失败")
+    print("*"*50)
     pass
 
 import datasets
