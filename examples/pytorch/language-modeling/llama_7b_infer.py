@@ -1,7 +1,14 @@
+import os
+python_path = os.environ.get('PYTHONPATH')
+print(f"The value of PYTHONPATH is: {python_path}")
 import torch
 try:
     import torch_dipu
+    print("dipu导入成功")
 except:
+    print("*"*50)
+    print("dipu导入失败")
+    print("*"*50)
     pass
 from datetime import datetime
 from transformers import AutoTokenizer, AutoModelForCausalLM
