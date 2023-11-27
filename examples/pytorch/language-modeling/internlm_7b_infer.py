@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Script for InternLM 7B inference")
     parser.add_argument("--model_path", type=str,
-                        default="/mnt/lustre/share_data/platform_ci/internlm-7b")
+                        default="/mnt/lustre/share_data/PAT/datasets/internlm_7B_hf")
     args = parser.parse_args()
     model = AutoModelForCausalLM.from_pretrained(
         args.model_path, torch_dtype=torch.float16, trust_remote_code=True)
