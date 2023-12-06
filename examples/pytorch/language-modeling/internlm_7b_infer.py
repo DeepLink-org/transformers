@@ -14,7 +14,7 @@ def test_internlm_infer(MODEL_PATH, model):
         MODEL_PATH, trust_remote_code=True)
     prompt = "来到美丽的大自然，我们发现"
     answer_reference = '''来到美丽的大自然，我们发现很多植物都长得非常奇特。
-比如我们今天说的这种树—“猪笼草”！它是一种热带食虫的灌木或小乔木；它的叶子是椭圆形或者卵形、长圆形等形状不等的小叶组成一个圆筒状的花序（花茎）'''
+比如我们今天说的这种树—“猴面包”（Moringa oleifera）, 它是一种生长在非洲的树木品种之一；它的果实可以食用、种子可以用来榨油和制作肥皂等产品……但是你知道吗？其实'''
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to("cuda:0")
     print("------start InternLM 7B inference------")
     start = datetime.now()
