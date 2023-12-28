@@ -38,9 +38,7 @@ self-attention layers with grouped convolutions, and we use this technique in a 
 SqueezeBERT, which runs 4.3x faster than BERT-base on the Pixel 3 while achieving competitive accuracy on the GLUE test
 set. The SqueezeBERT code will be released.*
 
-This model was contributed by [forresti](https://huggingface.co/forresti).
-
-## Usage tips
+Tips:
 
 - SqueezeBERT is a model with absolute position embeddings so it's usually advised to pad the inputs on the right
   rather than the left.
@@ -50,7 +48,9 @@ This model was contributed by [forresti](https://huggingface.co/forresti).
 - For best results when finetuning on sequence classification tasks, it is recommended to start with the
   *squeezebert/squeezebert-mnli-headless* checkpoint.
 
-## Resources
+This model was contributed by [forresti](https://huggingface.co/forresti).
+
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)

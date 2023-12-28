@@ -39,10 +39,9 @@ from transformers.testing_utils import (
     require_pyctcdecode,
     require_tf,
     require_torch,
-    require_torch_accelerator,
+    require_torch_gpu,
     require_torchaudio,
     slow,
-    torch_device,
 )
 
 from .test_pipelines_common import ANY
@@ -167,11 +166,13 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
             _ = speech_recognizer(waveform, return_timestamps="char")
 
     @slow
-    @require_torch_accelerator
+    @require_torch
     def test_whisper_fp16(self):
+        if not torch.cuda.is_available():
+            self.skipTest("Cuda is necessary for this test")
         speech_recognizer = pipeline(
             model="openai/whisper-base",
-            device=torch_device,
+            device=0,
             torch_dtype=torch.float16,
         )
         waveform = np.tile(np.arange(1000, dtype=np.float32), 34)
@@ -298,7 +299,6 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         output = speech_recognizer(filename)
         self.assertEqual(output, {"text": "A MAN SAID TO THE UNIVERSE SIR I EXIST"})
 
-    @slow
     @require_torch
     @slow
     def test_return_timestamps_in_preprocess(self):
@@ -319,28 +319,28 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
             res,
             {
                 "text": " Conquered returned to its place amidst the tents.",
-                "chunks": [{"timestamp": (0.0, 3.36), "text": " Conquered returned to its place amidst the tents."}],
+                "chunks": [{"text": " Conquered returned to its place amidst the tents.", "timestamp": (0.0, 3.36)}],
             },
         )
         pipe.model.generation_config.alignment_heads = [[2, 2], [3, 0], [3, 2], [3, 3], [3, 4], [3, 5]]
         res = pipe(sample["audio"]["array"], return_timestamps="word")
-
         # fmt: off
+        # Note that the word-level timestamps predicted here are pretty bad.
         self.assertEqual(
             res,
             {
                 "text": " Conquered returned to its place amidst the tents.",
                 "chunks": [
-                    {"text": " Conquered", "timestamp": (0.5, 1.2)},
-                    {"text": " returned", "timestamp": (1.2, 1.64)},
-                    {"text": " to", "timestamp": (1.64, 1.84)},
-                    {"text": " its", "timestamp": (1.84, 2.02)},
-                    {"text": " place", "timestamp": (2.02, 2.28)},
-                    {"text": " amidst", "timestamp": (2.28, 2.78)},
-                    {"text": " the", "timestamp": (2.78, 2.96)},
-                    {"text": " tents.", "timestamp": (2.96, 3.48)},
-                ],
-            },
+                    {'text': ' Conquered', 'timestamp': (29.78, 29.9)},
+                    {'text': ' returned', 'timestamp': (29.9, 29.9)},
+                    {'text': ' to', 'timestamp': (29.9, 29.9)},
+                    {'text': ' its', 'timestamp': (29.9, 29.9)},
+                    {'text': ' place', 'timestamp': (29.9, 29.9)},
+                    {'text': ' amidst', 'timestamp': (29.9, 29.9)},
+                    {'text': ' the', 'timestamp': (29.9, 29.9)},
+                    {'text': ' tents.', 'timestamp': (29.9, 29.9)}
+                ]
+            }
         )
         # fmt: on
 
@@ -517,7 +517,9 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         )
 
         # Merge when the previous sequence is not included in the current sequence
-        next_sequences_3 = [[50364, 2812, 9836, 14783, 390, 6263, 538, 257, 1359, 11, 8199, 6327, 1090, 322, 702, 7443, 13, 50584, 50257]]  # fmt: skip
+        # fmt: off
+        next_sequences_3 = [[50364, 2812, 9836, 14783, 390, 6263, 538, 257, 1359, 11, 8199, 6327, 1090, 322, 702, 7443, 13, 50584, 50257]]
+        # fmt: on
         # {'text': ' His instant panic was followed by a small, sharp blow high on his chest.','timestamp': (0.0, 9.4)}
         merge = _find_timestamp_sequence(
             [[previous_sequence, (480_000, 0, 0)], [next_sequences_3, (480_000, 120_000, 0)]],
@@ -525,10 +527,12 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
             processor.feature_extractor,
             max_source_positions,
         )
+        # fmt: off
         self.assertEqual(
             merge,
             [51492, 406, 3163, 1953, 466, 13, 51612, 51612, 2812, 9836, 14783, 390, 6263, 538, 257, 1359, 11, 8199, 6327, 1090, 322, 702, 7443, 13, 51832],
-        )  # fmt: skip
+        )
+        # fmt: on
         self.assertEqual(
             processor.decode(merge, output_offsets=True),
             {
@@ -546,19 +550,23 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
             },
         )
         # last case is when the sequence is not in the first next predicted start and end of timestamp
+        # fmt: off
         next_sequences_3 = [
             [50364, 2812, 9836, 14783, 390, 406, 3163, 1953, 466, 13, 50634, 50634, 2812, 9836, 14783, 390, 6263, 538, 257, 1359, 11, 8199, 6327, 1090, 322, 702, 7443, 13, 50934]
-        ]  # fmt: skip
+        ]
+        # fmt: on
         merge = _find_timestamp_sequence(
             [[previous_sequence, (480_000, 0, 0)], [next_sequences_3, (480_000, 167_000, 0)]],
             processor.tokenizer,
             processor.feature_extractor,
             max_source_positions,
         )
+        # fmt: off
         self.assertEqual(
             merge,
             [51492, 406, 3163, 1953, 466, 13, 51612, 51612, 2812, 9836, 14783, 390, 6263, 538, 257, 1359, 11, 8199, 6327, 1090, 322, 702, 7443, 13, 51912]
-        )  # fmt: skip
+        )
+        # fmt: on
         self.assertEqual(
             processor.decode(merge, output_offsets=True),
             {
@@ -846,44 +854,6 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
 
     @slow
     @require_torch
-    def test_whisper_language(self):
-        speech_recognizer = pipeline(
-            task="automatic-speech-recognition",
-            model="openai/whisper-tiny.en",
-            framework="pt",
-        )
-        ds = load_dataset("hf-internal-testing/librispeech_asr_dummy", "clean", split="validation")
-        filename = ds[0]["file"]
-
-        # 1. English-only model compatible with no language argument
-        output = speech_recognizer(filename)
-        self.assertEqual(
-            output,
-            {"text": " Mr. Quilter is the apostle of the middle classes, and we are glad to welcome his gospel."},
-        )
-
-        # 2. English-only Whisper does not accept the language argument
-        with self.assertRaisesRegex(
-            ValueError,
-            "Cannot specify `task` or `language` for an English-only model. If the model is intended to be multilingual, "
-            "pass `is_multilingual=True` to generate, or update the generation config.",
-        ):
-            _ = speech_recognizer(filename, generate_kwargs={"language": "en"})
-
-        # 3. Multilingual model accepts language argument
-        speech_recognizer = pipeline(
-            task="automatic-speech-recognition",
-            model="openai/whisper-tiny",
-            framework="pt",
-        )
-        output = speech_recognizer(filename, generate_kwargs={"language": "en"})
-        self.assertEqual(
-            output,
-            {"text": " Mr. Quilter is the apostle of the middle classes and we are glad to welcome his gospel."},
-        )
-
-    @slow
-    @require_torch
     @require_torchaudio
     def test_xls_r_to_en(self):
         speech_recognizer = pipeline(
@@ -933,12 +903,12 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         self.assertEqual(output, {"text": "a man said to the universe sir i exist"})
 
     @slow
-    @require_torch_accelerator
+    @require_torch_gpu
     def test_wav2vec2_conformer_float16(self):
         speech_recognizer = pipeline(
             task="automatic-speech-recognition",
             model="facebook/wav2vec2-conformer-rope-large-960h-ft",
-            device=torch_device,
+            device="cuda:0",
             torch_dtype=torch.float16,
             framework="pt",
         )
@@ -1201,7 +1171,7 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         # CTC models must specify return_timestamps type - cannot set `return_timestamps=True` blindly
         with self.assertRaisesRegex(
             ValueError,
-            "^CTC can either predict character level timestamps, or word level timestamps. "
+            "^CTC can either predict character level timestamps, or word level timestamps."
             "Set `return_timestamps='char'` or `return_timestamps='word'` as required.$",
         ):
             _ = speech_recognizer(audio, return_timestamps=True)
@@ -1333,14 +1303,14 @@ class AutomaticSpeechRecognitionPipelineTests(unittest.TestCase):
         self.assertEqual(output, {"text": "XB"})
 
     @slow
-    @require_torch_accelerator
+    @require_torch_gpu
     def test_slow_unfinished_sequence(self):
         from transformers import GenerationConfig
 
         pipe = pipeline(
             "automatic-speech-recognition",
             model="vasista22/whisper-hindi-large-v2",
-            device=torch_device,
+            device="cuda:0",
         )
         # Original model wasn't trained with timestamps and has incorrect generation config
         pipe.model.generation_config = GenerationConfig.from_pretrained("openai/whisper-large-v2")

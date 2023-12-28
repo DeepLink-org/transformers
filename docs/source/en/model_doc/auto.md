@@ -266,10 +266,6 @@ The following auto classes are available for the following computer vision tasks
 
 [[autodoc]] AutoModelForImageSegmentation
 
-### AutoModelForImageToImage
-
-[[autodoc]] AutoModelForImageToImage
-
 ### AutoModelForSemanticSegmentation
 
 [[autodoc]] AutoModelForSemanticSegmentation

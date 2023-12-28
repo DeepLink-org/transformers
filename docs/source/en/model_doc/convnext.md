@@ -32,6 +32,10 @@ of a vision Transformer, and discover several key components that contribute to 
 dubbed ConvNeXt. Constructed entirely from standard ConvNet modules, ConvNeXts compete favorably with Transformers in terms of accuracy and scalability, achieving 87.8% ImageNet top-1 accuracy
 and outperforming Swin Transformers on COCO detection and ADE20K segmentation, while maintaining the simplicity and efficiency of standard ConvNets.*
 
+Tips:
+
+- See the code examples below each model regarding usage.
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/convnext_architecture.jpg"
 alt="drawing" width="600"/>
 
@@ -64,9 +68,6 @@ If you're interested in submitting a resource to be included here, please feel f
 [[autodoc]] ConvNextImageProcessor
     - preprocess
 
-<frameworkcontent>
-<pt>
-
 ## ConvNextModel
 
 [[autodoc]] ConvNextModel
@@ -77,18 +78,14 @@ If you're interested in submitting a resource to be included here, please feel f
 [[autodoc]] ConvNextForImageClassification
     - forward
 
-</pt>
-<tf>
 
 ## TFConvNextModel
 
 [[autodoc]] TFConvNextModel
     - call
 
+
 ## TFConvNextForImageClassification
 
 [[autodoc]] TFConvNextForImageClassification
     - call
-
-</tf>
-</frameworkcontent>

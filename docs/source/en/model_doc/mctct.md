@@ -40,15 +40,17 @@ pseudo-labels for all languages, either from scratch or by fine-tuning. Experime
 Common Voice and unlabeled VoxPopuli datasets show that our recipe can yield a model with better
 performance for many languages that also transfers well to LibriSpeech.*
 
+
+
 This model was contributed by [cwkeam](https://huggingface.co/cwkeam). The original code can be found [here](https://github.com/flashlight/wav2letter/tree/main/recipes/mling_pl).
 
-## Usage tips
-
-The PyTorch version of this model is only available in torch 1.9 and higher.
-
-## Resources
+## Documentation resources
 
 - [Automatic speech recognition task guide](../tasks/asr)
+
+Tips:
+
+- The PyTorch version of this model is only available in torch 1.9 and higher.
 
 ## MCTCTConfig
 
@@ -67,6 +69,7 @@ The PyTorch version of this model is only available in torch 1.9 and higher.
     - save_pretrained
     - batch_decode
     - decode
+
 
 ## MCTCTModel
 

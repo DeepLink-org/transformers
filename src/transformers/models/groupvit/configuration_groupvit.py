@@ -88,7 +88,6 @@ class GroupViTTextConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "groupvit_text_model"
 
     def __init__(

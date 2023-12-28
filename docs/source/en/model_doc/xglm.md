@@ -42,7 +42,7 @@ in social value tasks such as hate speech detection in five languages and find i
 
 This model was contributed by [Suraj](https://huggingface.co/valhalla). The original code can be found [here](https://github.com/pytorch/fairseq/tree/main/examples/xglm).
 
-## Resources
+## Documentation resources
 
 - [Causal language modeling task guide](../tasks/language_modeling)
 
@@ -62,9 +62,6 @@ This model was contributed by [Suraj](https://huggingface.co/valhalla). The orig
 
 [[autodoc]] XGLMTokenizerFast
 
-<frameworkcontent>
-<pt>
-
 ## XGLMModel
 
 [[autodoc]] XGLMModel
@@ -74,9 +71,6 @@ This model was contributed by [Suraj](https://huggingface.co/valhalla). The orig
 
 [[autodoc]] XGLMForCausalLM
     - forward
-
-</pt>
-<tf>
 
 ## TFXGLMModel
 
@@ -88,9 +82,6 @@ This model was contributed by [Suraj](https://huggingface.co/valhalla). The orig
 [[autodoc]] TFXGLMForCausalLM
     - call
 
-</tf>
-<jax>
-
 ## FlaxXGLMModel
 
 [[autodoc]] FlaxXGLMModel
@@ -100,6 +91,3 @@ This model was contributed by [Suraj](https://huggingface.co/valhalla). The orig
 
 [[autodoc]] FlaxXGLMForCausalLM
     - __call__
-
-</jax>
-</frameworkcontent>

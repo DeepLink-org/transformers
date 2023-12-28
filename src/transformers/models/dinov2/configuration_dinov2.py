@@ -32,7 +32,7 @@ DINOV2_PRETRAINED_CONFIG_ARCHIVE_MAP = {
 }
 
 
-class Dinov2Config(BackboneConfigMixin, PretrainedConfig):
+class Dinov2Config(PretrainedConfig, BackboneConfigMixin):
     r"""
     This is the configuration class to store the configuration of a [`Dinov2Model`]. It is used to instantiate an
     Dinov2 model according to the specified arguments, defining the model architecture. Instantiating a configuration
@@ -60,7 +60,7 @@ class Dinov2Config(BackboneConfigMixin, PretrainedConfig):
             The dropout ratio for the attention probabilities.
         initializer_range (`float`, *optional*, defaults to 0.02):
             The standard deviation of the truncated_normal_initializer for initializing all weight matrices.
-        layer_norm_eps (`float`, *optional*, defaults to 1e-06):
+        layer_norm_eps (`float`, *optional*, defaults to 1e-6):
             The epsilon used by the layer normalization layers.
         image_size (`int`, *optional*, defaults to 224):
             The size (resolution) of each image.
@@ -105,7 +105,6 @@ class Dinov2Config(BackboneConfigMixin, PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "dinov2"
 
     def __init__(

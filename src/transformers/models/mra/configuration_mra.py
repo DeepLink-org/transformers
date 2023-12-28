@@ -90,7 +90,6 @@ class MraConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "mra"
 
     def __init__(

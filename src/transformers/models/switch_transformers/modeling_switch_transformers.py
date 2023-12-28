@@ -23,6 +23,7 @@ from typing import Optional, Tuple, Union
 import torch
 import torch.nn as nn
 from torch.nn import CrossEntropyLoss
+from torch.utils.checkpoint import checkpoint
 
 from ...activations import ACT2FN
 from ...modeling_outputs import (
@@ -318,7 +319,7 @@ class SwitchTransformersSparseMLP(nn.Module):
         next_states = hidden_states.clone()
         for idx, expert in enumerate(self.experts.values()):
             token_indices = router_mask[:, :, idx].bool()
-            next_states[token_indices] = expert(hidden_states[token_indices]).to(next_states.dtype)
+            next_states[token_indices] = expert(hidden_states[token_indices])
 
         hidden_states = router_probs * next_states
         return hidden_states, (router_logits, expert_index)
@@ -778,7 +779,7 @@ class SwitchTransformersBlock(nn.Module):
         if isinstance(hidden_states, tuple):
             hidden_states, router_tuple = hidden_states
         else:
-            router_tuple = (torch.zeros((1,), device=hidden_states.device, dtype=torch.int64),)
+            router_tuple = (torch.tensor([0], device=hidden_states.device),)
 
         # clamp inf values to enable fp16 training
         if hidden_states.dtype == torch.float16 and torch.isinf(hidden_states).any():
@@ -863,6 +864,10 @@ class SwitchTransformersPreTrainedModel(PreTrainedModel):
             for idx in range(self.config.num_experts):
                 module.experts[f"expert_{idx}"].wi.weight.data.normal_(mean=0.0, std=factor * (d_model**-0.5))
                 module.experts[f"expert_{idx}"].wo.weight.data.normal_(mean=0.0, std=factor * (d_model**-0.5))
+
+    def _set_gradient_checkpointing(self, module, value=False):
+        if isinstance(module, (SwitchTransformersAttention, SwitchTransformersStack)):
+            module.gradient_checkpointing = value
 
     def _shift_right(self, input_ids):
         decoder_start_token_id = self.config.decoder_start_token_id
@@ -1034,8 +1039,15 @@ class SwitchTransformersStack(SwitchTransformersPreTrainedModel):
                 all_hidden_states = all_hidden_states + (hidden_states,)
 
             if self.gradient_checkpointing and self.training:
-                layer_outputs = self._gradient_checkpointing_func(
-                    layer_module.forward,
+
+                def create_custom_forward(module):
+                    def custom_forward(*inputs):
+                        return tuple(module(*inputs, use_cache, output_attentions))
+
+                    return custom_forward
+
+                layer_outputs = checkpoint(
+                    create_custom_forward(layer_module),
                     hidden_states,
                     extended_attention_mask,
                     position_bias,
@@ -1045,8 +1057,6 @@ class SwitchTransformersStack(SwitchTransformersPreTrainedModel):
                     layer_head_mask,
                     cross_attn_layer_head_mask,
                     None,  # past_key_value is always None with gradient checkpointing
-                    use_cache,
-                    output_attentions,
                 )
             else:
                 layer_outputs = layer_module(
@@ -1329,11 +1339,6 @@ class SwitchTransformersModel(SwitchTransformersPreTrainedModel):
         self.encoder.set_input_embeddings(new_embeddings)
         self.decoder.set_input_embeddings(new_embeddings)
 
-    def _tie_weights(self):
-        if self.config.tie_word_embeddings:
-            self._tie_or_clone_weights(self.encoder.embed_tokens, self.shared)
-            self._tie_or_clone_weights(self.decoder.embed_tokens, self.shared)
-
     def get_encoder(self):
         return self.encoder
 
@@ -1509,11 +1514,6 @@ class SwitchTransformersForConditionalGeneration(SwitchTransformersPreTrainedMod
         self.shared = new_embeddings
         self.encoder.set_input_embeddings(new_embeddings)
         self.decoder.set_input_embeddings(new_embeddings)
-
-    def _tie_weights(self):
-        if self.config.tie_word_embeddings:
-            self._tie_or_clone_weights(self.encoder.embed_tokens, self.shared)
-            self._tie_or_clone_weights(self.decoder.embed_tokens, self.shared)
 
     def set_output_embeddings(self, new_embeddings):
         self.lm_head = new_embeddings
@@ -1727,18 +1727,9 @@ class SwitchTransformersForConditionalGeneration(SwitchTransformersPreTrainedMod
         encoder_outputs=None,
         **kwargs,
     ):
-        # cut decoder_input_ids if past_key_values is used
+        # cut decoder_input_ids if past is used
         if past_key_values is not None:
-            past_length = past_key_values[0][0].shape[2]
-
-            # Some generation methods already pass only the last input ID
-            if input_ids.shape[1] > past_length:
-                remove_prefix_length = past_length
-            else:
-                # Default to old behavior: keep only final ID
-                remove_prefix_length = input_ids.shape[1] - 1
-
-            input_ids = input_ids[:, remove_prefix_length:]
+            input_ids = input_ids[:, -1:]
 
         return {
             "decoder_input_ids": input_ids,
@@ -1774,13 +1765,13 @@ class SwitchTransformersForConditionalGeneration(SwitchTransformersPreTrainedMod
 
             if reordered_layer_past_states[0].shape != layer_past_states[0].shape:
                 raise ValueError(
-                    "expected reordered_layer_past_states to have the same shape than layer_past_states, "
+                    "expected reordered_layer_past_states to have the same shape than layer_past_states"
                     f"but got {reordered_layer_past_states[0].shape} and {layer_past_states[0].shape}"
                 )
             if len(reordered_layer_past_states) != len(layer_past_states):
                 raise ValueError(
-                    "expected layer_past_states to have the same length as reordered_layer_past_states, "
-                    f"but got {len(layer_past_states)} and {len(reordered_layer_past_states)}"
+                    "expected layer_past_states to have the same length as reordered_layer_past_states"
+                    f"got {len(layer_past_states)} and {len(reordered_layer_past_states)}"
                 )
 
             reordered_decoder_past = reordered_decoder_past + (reordered_layer_past_states,)
@@ -1816,10 +1807,6 @@ class SwitchTransformersEncoderModel(SwitchTransformersPreTrainedModel):
     def set_input_embeddings(self, new_embeddings):
         self.shared = new_embeddings
         self.encoder.set_input_embeddings(new_embeddings)
-
-    def _tie_weights(self):
-        if self.config.tie_word_embeddings:
-            self._tie_or_clone_weights(self.encoder.embed_tokens, self.shared)
 
     def get_encoder(self):
         return self.encoder

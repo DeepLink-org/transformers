@@ -31,12 +31,11 @@ class ChineseCLIPProcessor(ProcessorMixin):
     See the [`~ChineseCLIPProcessor.__call__`] and [`~ChineseCLIPProcessor.decode`] for more information.
 
     Args:
-        image_processor ([`ChineseCLIPImageProcessor`], *optional*):
+        image_processor ([`ChineseCLIPImageProcessor`]):
             The image processor is a required input.
-        tokenizer ([`BertTokenizerFast`], *optional*):
+        tokenizer ([`BertTokenizerFast`]):
             The tokenizer is a required input.
     """
-
     attributes = ["image_processor", "tokenizer"]
     image_processor_class = "ChineseCLIPImageProcessor"
     tokenizer_class = ("BertTokenizer", "BertTokenizerFast")

@@ -16,7 +16,10 @@ rendered properly in your Markdown viewer.
 
 # PLBart
 
-## Overview
+**DISCLAIMER:** If you see something strange, file a [Github Issue](https://github.com/huggingface/transformers/issues/new?assignees=&labels=&template=bug-report.md&title) and assign
+[@gchhablani](https://www.github.com/gchhablani).
+
+## Overview of PLBart
 
 The PLBART model was proposed in [Unified Pre-training for Program Understanding and Generation](https://arxiv.org/abs/2103.06333) by Wasi Uddin Ahmad, Saikat Chakraborty, Baishakhi Ray, Kai-Wei Chang.
 This is a BART-like model which can be used to perform code-summarization, code-generation, and code-translation tasks. The pre-trained model `plbart-base` has been trained using multilingual denoising task
@@ -37,7 +40,7 @@ even with limited annotations.*
 
 This model was contributed by [gchhablani](https://huggingface.co/gchhablani). The Authors' code can be found [here](https://github.com/wasiahmad/PLBART).
 
-## Usage examples
+### Training of PLBart
 
 PLBart is a multilingual encoder-decoder (sequence-to-sequence) model primarily intended for code-to-text, text-to-code, code-to-code tasks. As the
 model is multilingual it expects the sequences in a different format. A special language id token is added in both the
@@ -50,7 +53,7 @@ In cases where the language code is needed, the regular [`~PLBartTokenizer.__cal
 when you pass texts as the first argument or with the keyword argument `text`, and will encode target text format if
 it's passed with the `text_target` keyword argument.
 
-### Supervised training
+- Supervised training
 
 ```python
 >>> from transformers import PLBartForConditionalGeneration, PLBartTokenizer
@@ -62,7 +65,7 @@ it's passed with the `text_target` keyword argument.
 >>> model(**inputs)
 ```
 
-### Generation
+- Generation
 
   While generating the target text set the `decoder_start_token_id` to the target language id. The following
   example shows how to translate Python to English using the `uclanlp/plbart-python-en_XX` model.
@@ -79,7 +82,7 @@ it's passed with the `text_target` keyword argument.
 "Returns the maximum value of a b c."
 ```
 
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Causal language modeling task guide](../tasks/language_modeling)

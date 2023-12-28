@@ -888,7 +888,7 @@ class PerceiverModelIntegrationTest(unittest.TestCase):
         logits = outputs.logits
 
         # verify logits
-        expected_shape = torch.Size((1, tokenizer.model_max_length, len(tokenizer)))
+        expected_shape = torch.Size((1, tokenizer.model_max_length, tokenizer.vocab_size))
         self.assertEqual(logits.shape, expected_shape)
 
         expected_slice = torch.tensor(

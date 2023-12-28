@@ -47,7 +47,6 @@ _re_configuration_file = re.compile(r"config\.(.*)\.json")
 
 
 class PretrainedConfig(PushToHubMixin):
-    # no-format
     r"""
     Base class for all configuration classes. Handles a few parameters common to all models' configurations as well as
     methods for loading/downloading/saving configurations.
@@ -246,7 +245,6 @@ class PretrainedConfig(PushToHubMixin):
             not be XLA-compatible. This option is here for backward compatibility and will be removed in Transformers
             v5.
     """
-
     model_type: str = ""
     is_composition: bool = False
     attribute_map: Dict[str, str] = {}
@@ -485,8 +483,7 @@ class PretrainedConfig(PushToHubMixin):
 
         if use_auth_token is not None:
             warnings.warn(
-                "The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers. Please use `token` instead.",
-                FutureWarning,
+                "The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.", FutureWarning
             )
             if token is not None:
                 raise ValueError(
@@ -856,13 +853,7 @@ class PretrainedConfig(PushToHubMixin):
                 else self.quantization_config
             )
 
-            # pop the `_pre_quantization_dtype` as torch.dtypes are not serializable.
-            _ = serializable_config_dict.pop("_pre_quantization_dtype", None)
-
         self.dict_torch_dtype_to_str(serializable_config_dict)
-
-        if "_flash_attn_2_enabled" in serializable_config_dict:
-            del serializable_config_dict["_flash_attn_2_enabled"]
 
         return serializable_config_dict
 
@@ -880,8 +871,6 @@ class PretrainedConfig(PushToHubMixin):
             del output["_auto_class"]
         if "_commit_hash" in output:
             del output["_commit_hash"]
-        if "_flash_attn_2_enabled" in output:
-            del output["_flash_attn_2_enabled"]
 
         # Transformers version when serializing the model
         output["transformers_version"] = __version__
@@ -900,9 +889,6 @@ class PretrainedConfig(PushToHubMixin):
                 if not isinstance(self.quantization_config, dict)
                 else self.quantization_config
             )
-
-            # pop the `_pre_quantization_dtype` as torch.dtypes are not serializable.
-            _ = output.pop("_pre_quantization_dtype", None)
 
         self.dict_torch_dtype_to_str(output)
 

@@ -28,9 +28,7 @@ al., 2019). Experiments show that BERTweet outperforms strong baselines RoBERTa-
 2020), producing better performance results than the previous state-of-the-art models on three Tweet NLP tasks:
 Part-of-speech tagging, Named-entity recognition and text classification.*
 
-This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The original code can be found [here](https://github.com/VinAIResearch/BERTweet).
-
-## Usage example
+Example of use:
 
 ```python
 >>> import torch
@@ -57,12 +55,7 @@ This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The o
 >>> # bertweet = TFAutoModel.from_pretrained("vinai/bertweet-base")
 ```
 
-<Tip> 
-
-This implementation is the same as BERT, except for tokenization method. Refer to [BERT documentation](bert) for 
-API reference information.  
-
-</Tip>
+This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The original code can be found [here](https://github.com/VinAIResearch/BERTweet).
 
 ## BertweetTokenizer
 

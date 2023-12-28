@@ -303,6 +303,7 @@ class ConvNextV2PreTrainedModel(PreTrainedModel):
     config_class = ConvNextV2Config
     base_model_prefix = "convnextv2"
     main_input_name = "pixel_values"
+    supports_gradient_checkpointing = True
 
     def _init_weights(self, module):
         """Initialize the weights"""
@@ -315,6 +316,10 @@ class ConvNextV2PreTrainedModel(PreTrainedModel):
         elif isinstance(module, nn.LayerNorm):
             module.bias.data.zero_()
             module.weight.data.fill_(1.0)
+
+    def _set_gradient_checkpointing(self, module, value=False):
+        if isinstance(module, ConvNextV2Encoder):
+            module.gradient_checkpointing = value
 
 
 CONVNEXTV2_START_DOCSTRING = r"""
@@ -552,13 +557,14 @@ class ConvNextV2Backbone(ConvNextV2PreTrainedModel, BackboneMixin):
         outputs = self.encoder(
             embedding_output,
             output_hidden_states=True,
-            return_dict=return_dict,
+            return_dict=True,
         )
 
-        hidden_states = outputs.hidden_states if return_dict else outputs[1]
+        hidden_states = outputs.hidden_states
 
         feature_maps = ()
-        for stage, hidden_state in zip(self.stage_names, hidden_states):
+        # we skip the stem
+        for idx, (stage, hidden_state) in enumerate(zip(self.stage_names[1:], hidden_states[1:])):
             if stage in self.out_features:
                 hidden_state = self.hidden_states_norms[stage](hidden_state)
                 feature_maps += (hidden_state,)
@@ -566,11 +572,11 @@ class ConvNextV2Backbone(ConvNextV2PreTrainedModel, BackboneMixin):
         if not return_dict:
             output = (feature_maps,)
             if output_hidden_states:
-                output += (hidden_states,)
+                output += (outputs.hidden_states,)
             return output
 
         return BackboneOutput(
             feature_maps=feature_maps,
-            hidden_states=hidden_states if output_hidden_states else None,
+            hidden_states=outputs.hidden_states if output_hidden_states else None,
             attentions=None,
         )

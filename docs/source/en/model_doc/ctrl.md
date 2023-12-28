@@ -41,10 +41,7 @@ providing more explicit control over text generation. These codes also allow CTR
 training data are most likely given a sequence. This provides a potential method for analyzing large amounts of data
 via model-based source attribution.*
 
-This model was contributed by [keskarnitishr](https://huggingface.co/keskarnitishr). The original code can be found
-[here](https://github.com/salesforce/ctrl).
-
-## Usage tips
+Tips:
 
 - CTRL makes use of control codes to generate text: it requires generations to be started by certain words, sentences
   or links to generate coherent text. Refer to the [original implementation](https://github.com/salesforce/ctrl) for
@@ -59,8 +56,10 @@ This model was contributed by [keskarnitishr](https://huggingface.co/keskarnitis
   pre-computed values in the context of text generation. See the [`forward`](model_doc/ctrl#transformers.CTRLModel.forward)
   method for more information on the usage of this argument.
 
+This model was contributed by [keskarnitishr](https://huggingface.co/keskarnitishr). The original code can be found
+[here](https://github.com/salesforce/ctrl).
 
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Causal language modeling task guide](../tasks/language_modeling)
@@ -73,9 +72,6 @@ This model was contributed by [keskarnitishr](https://huggingface.co/keskarnitis
 
 [[autodoc]] CTRLTokenizer
     - save_vocabulary
-
-<frameworkcontent>
-<pt>
 
 ## CTRLModel
 
@@ -92,9 +88,6 @@ This model was contributed by [keskarnitishr](https://huggingface.co/keskarnitis
 [[autodoc]] CTRLForSequenceClassification
     - forward
 
-</pt>
-<tf>
-
 ## TFCTRLModel
 
 [[autodoc]] TFCTRLModel
@@ -109,6 +102,3 @@ This model was contributed by [keskarnitishr](https://huggingface.co/keskarnitis
 
 [[autodoc]] TFCTRLForSequenceClassification
     - call
-
-</tf>
-</frameworkcontent>

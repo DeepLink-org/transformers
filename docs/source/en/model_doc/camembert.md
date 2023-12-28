@@ -34,16 +34,14 @@ dependency parsing, named-entity recognition, and natural language inference. Ca
 for most of the tasks considered. We release the pretrained model for CamemBERT hoping to foster research and
 downstream applications for French NLP.*
 
+Tips:
+
+- This implementation is the same as RoBERTa. Refer to the [documentation of RoBERTa](roberta) for usage examples
+  as well as the information relative to the inputs and outputs.
+
 This model was contributed by [camembert](https://huggingface.co/camembert). The original code can be found [here](https://camembert-model.fr/).
 
-<Tip>
-
-This implementation is the same as RoBERTa. Refer to the [documentation of RoBERTa](roberta) for usage examples as well 
-as the information relative to the inputs and outputs.
-
-</Tip>
-
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -67,9 +65,6 @@ as the information relative to the inputs and outputs.
 ## CamembertTokenizerFast
 
 [[autodoc]] CamembertTokenizerFast
-
-<frameworkcontent>
-<pt>
 
 ## CamembertModel
 
@@ -99,9 +94,6 @@ as the information relative to the inputs and outputs.
 
 [[autodoc]] CamembertForQuestionAnswering
 
-</pt>
-<tf>
-
 ## TFCamembertModel
 
 [[autodoc]] TFCamembertModel
@@ -129,7 +121,3 @@ as the information relative to the inputs and outputs.
 ## TFCamembertForQuestionAnswering
 
 [[autodoc]] TFCamembertForQuestionAnswering
-
-</tf>
-</frameworkcontent>
-

@@ -28,9 +28,7 @@ best pre-trained multilingual model XLM-R (Conneau et al., 2020) and improves th
 Vietnamese-specific NLP tasks including Part-of-speech tagging, Dependency parsing, Named-entity recognition and
 Natural language inference.*
 
-This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The original code can be found [here](https://github.com/VinAIResearch/PhoBERT).
-
-## Usage example
+Example of use:
 
 ```python
 >>> import torch
@@ -52,12 +50,7 @@ This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The o
 >>> # phobert = TFAutoModel.from_pretrained("vinai/phobert-base")
 ```
 
-<Tip> 
-
-PhoBERT implementation is the same as BERT, except for tokenization. Refer to [EART documentation](bert) for information on 
-configuration classes and their parameters. PhoBERT-specific tokenizer is documented below.  
-
-</Tip>
+This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The original code can be found [here](https://github.com/VinAIResearch/PhoBERT).
 
 ## PhobertTokenizer
 

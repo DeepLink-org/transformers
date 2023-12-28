@@ -100,7 +100,6 @@ class EfficientNetConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "efficientnet"
 
     def __init__(

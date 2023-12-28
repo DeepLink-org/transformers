@@ -45,9 +45,7 @@ language processing tasks, including pushing the GLUE score to 80.5% (7.7% point
 accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute
 improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).*
 
-This model was contributed by [thomwolf](https://huggingface.co/thomwolf). The original code can be found [here](https://github.com/google-research/bert).
-
-## Usage tips
+Tips:
 
 - BERT is a model with absolute position embeddings so it's usually advised to pad the inputs on the right rather than
   the left.
@@ -60,6 +58,10 @@ This model was contributed by [thomwolf](https://huggingface.co/thomwolf). The o
     * the same token with probability 0.1
     
 - The model must predict the original sentence, but has a second objective: inputs are two sentences A and B (with a separation token in between). With probability 50%, the sentences are consecutive in the corpus, in the remaining 50% they are not related. The model has to predict if the sentences are consecutive or not.
+
+
+
+This model was contributed by [thomwolf](https://huggingface.co/thomwolf). The original code can be found [here](https://github.com/google-research/bert).
 
 ## Resources
 
@@ -135,22 +137,13 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
     - create_token_type_ids_from_sequences
     - save_vocabulary
 
-<frameworkcontent>
-<pt>
-
 ## BertTokenizerFast
 
 [[autodoc]] BertTokenizerFast
 
-</pt>
-<tf>
-
 ## TFBertTokenizer
 
 [[autodoc]] TFBertTokenizer
-
-</tf>
-</frameworkcontent>
 
 ## Bert specific outputs
 
@@ -159,10 +152,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 [[autodoc]] models.bert.modeling_tf_bert.TFBertForPreTrainingOutput
 
 [[autodoc]] models.bert.modeling_flax_bert.FlaxBertForPreTrainingOutput
-
-
-<frameworkcontent>
-<pt>
 
 ## BertModel
 
@@ -209,9 +198,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 [[autodoc]] BertForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFBertModel
 
 [[autodoc]] TFBertModel
@@ -257,9 +243,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 [[autodoc]] TFBertForQuestionAnswering
     - call
 
-</tf>
-<jax>
-
 ## FlaxBertModel
 
 [[autodoc]] FlaxBertModel
@@ -304,8 +287,3 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 
 [[autodoc]] FlaxBertForQuestionAnswering
     - __call__
-
-</jax>
-</frameworkcontent>
-
-

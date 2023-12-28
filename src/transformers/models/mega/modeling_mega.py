@@ -539,7 +539,9 @@ class MegaGatedCrossAttention(nn.Module):
         self.config = config
         self.activation = ACT2FN[self.config.activation]
         self.attention_activation = self.config.attention_activation
-        self.scaling = self.config.shared_representation_size**-0.5 if self.attention_activation == "softmax" else None
+        self.scaling = (
+            self.config.shared_representation_size**-0.5 if self.attention_activation == "softmax" else None
+        )
 
         self.dropout = MegaDropout(self.config.dropout_prob, is_featurewise=self.config.use_feature_dropout)
         self.hidden_dropout = MegaDropout(
@@ -1339,7 +1341,7 @@ class MegaPreTrainedModel(PreTrainedModel):
     config_class = MegaConfig
     base_model_prefix = "mega"
     supports_gradient_checkpointing = False
-    _no_split_modules = ["MegaMovingAverageGatedAttention"]
+    _no_split_modules = []
 
     def _init_weights(self, module):
         """Initialize the weights"""
@@ -1800,9 +1802,7 @@ class MegaForCausalLM(MegaPreTrainedModel):
     def _reorder_cache(self, past_key_values, beam_idx):
         reordered_past = ()
         for layer_past in past_key_values:
-            reordered_past += (
-                tuple(past_state.index_select(0, beam_idx.to(past_state.device)) for past_state in layer_past),
-            )
+            reordered_past += (tuple(past_state.index_select(0, beam_idx) for past_state in layer_past),)
         return reordered_past
 
 

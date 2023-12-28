@@ -628,7 +628,9 @@ class TFSamModelIntegrationTest(unittest.TestCase):
 
         raw_image = prepare_image()
 
-        input_points = tf.convert_to_tensor([[[400, 650]], [[220, 470]]])  # fmt: skip
+        # fmt: off
+        input_points = tf.convert_to_tensor([[[400, 650]], [[220, 470]]])
+        # fmt: on
 
         input_points = tf.expand_dims(input_points, 0)
 

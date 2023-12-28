@@ -17,7 +17,6 @@ rendered properly in your Markdown viewer.
 # ESM
 
 ## Overview
-
 This page provides code and pre-trained weights for Transformer protein language models from Meta AI's Fundamental 
 AI Research Team, providing the state-of-the-art ESMFold and ESM-2, and the previously released ESM-1b and ESM-1v.
 Transformer protein language models were introduced in the paper [Biological structure and function emerge from scaling
@@ -74,6 +73,11 @@ sequences with low perplexity that are well understood by the language model. ES
 order of magnitude faster than AlphaFold2, enabling exploration of the structural space of metagenomic
 proteins in practical timescales.*
 
+
+Tips:
+
+- ESM models are trained with a masked language modeling (MLM) objective.
+
 The original code can be found [here](https://github.com/facebookresearch/esm) and was
 was developed by the Fundamental AI Research team at Meta AI.
 ESM-1b, ESM-1v and ESM-2 were contributed to huggingface by [jasonliu](https://huggingface.co/jasonliu)
@@ -83,12 +87,10 @@ ESMFold was contributed to huggingface by [Matt](https://huggingface.co/Rocketkn
 [Sylvain](https://huggingface.co/sgugger), with a big thank you to Nikita Smetanin, Roshan Rao and Tom Sercu for their
 help throughout the process!
 
-## Usage tips
+The HuggingFace port of ESMFold uses portions of the [openfold](https://github.com/aqlaboratory/openfold) library.
+The `openfold` library is licensed under the Apache License 2.0.
 
-- ESM models are trained with a masked language modeling (MLM) objective.
-- The HuggingFace port of ESMFold uses portions of the [openfold](https://github.com/aqlaboratory/openfold) library. The `openfold` library is licensed under the Apache License 2.0.
-
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -107,8 +109,6 @@ help throughout the process!
     - create_token_type_ids_from_sequences
     - save_vocabulary
 
-<frameworkcontent>
-<pt>
 
 ## EsmModel
 
@@ -135,9 +135,6 @@ help throughout the process!
 [[autodoc]] EsmForProteinFolding
     - forward
 
-</pt>
-<tf>
-
 ## TFEsmModel
 
 [[autodoc]] TFEsmModel
@@ -157,6 +154,3 @@ help throughout the process!
 
 [[autodoc]] TFEsmForTokenClassification
     - call
-
-</tf>
-</frameworkcontent>

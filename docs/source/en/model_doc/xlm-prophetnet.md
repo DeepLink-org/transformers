@@ -36,7 +36,7 @@ Zhang, Ming Zhou on 13 Jan, 2020.
 
 XLM-ProphetNet is an encoder-decoder model and can predict n-future tokens for "ngram" language modeling instead of
 just the next token. Its architecture is identical to ProhpetNet, but the model was trained on the multi-lingual
-"wiki100" Wikipedia dump. XLM-ProphetNet's model architecture and pretraining objective is same as ProphetNet, but XLM-ProphetNet was pre-trained on the cross-lingual dataset XGLUE.
+"wiki100" Wikipedia dump.
 
 The abstract from the paper is the following:
 
@@ -52,7 +52,11 @@ state-of-the-art results on all these datasets compared to the models using the 
 
 The Authors' code can be found [here](https://github.com/microsoft/ProphetNet).
 
-## Resources
+Tips:
+
+- XLM-ProphetNet's model architecture and pretraining objective is same as ProphetNet, but XLM-ProphetNet was pre-trained on the cross-lingual dataset XGLUE.
+
+## Documentation resources
 
 - [Causal language modeling task guide](../tasks/language_modeling)
 - [Translation task guide](../tasks/translation)

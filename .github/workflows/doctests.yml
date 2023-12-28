@@ -20,7 +20,7 @@ env:
 
 jobs:
   run_doctests:
-    runs-on: [single-gpu, nvidia-gpu, t4, ci]
+    runs-on: [self-hosted, doc-tests-gpu]
     container:
       image: huggingface/transformers-all-latest-gpu
       options: --gpus 0 --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
@@ -66,7 +66,7 @@ jobs:
 
   send_results:
     name: Send results to webhook
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: always()
     needs: [run_doctests]
     steps:

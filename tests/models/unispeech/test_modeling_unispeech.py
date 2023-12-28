@@ -421,7 +421,6 @@ class UniSpeechRobustModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.T
             for name, param in model.named_parameters():
                 uniform_init_parms = [
                     "conv.weight",
-                    "conv.parametrizations.weight",
                     "masked_spec_embed",
                     "codevectors",
                     "quantizer.weight_proj.weight",

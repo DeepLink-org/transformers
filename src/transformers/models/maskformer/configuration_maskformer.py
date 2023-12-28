@@ -94,7 +94,6 @@ class MaskFormerConfig(PretrainedConfig):
     ```
 
     """
-
     model_type = "maskformer"
     attribute_map = {"hidden_size": "mask_feature_size"}
     backbones_supported = ["resnet", "swin"]

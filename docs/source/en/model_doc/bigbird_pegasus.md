@@ -41,9 +41,7 @@ sequence as part of the sparse attention mechanism. The proposed sparse attentio
 BigBird drastically improves performance on various NLP tasks such as question answering and summarization. We also
 propose novel applications to genomics data.*
 
-The original code can be found [here](https://github.com/google-research/bigbird).
-
-## Usage tips
+Tips:
 
 - For an in-detail explanation on how BigBird's attention works, see [this blog post](https://huggingface.co/blog/big-bird).
 - BigBird comes with 2 implementations: **original_full** & **block_sparse**. For the sequence length < 1024, using
@@ -56,7 +54,9 @@ The original code can be found [here](https://github.com/google-research/bigbird
 - BigBird is a model with absolute position embeddings so it's usually advised to pad the inputs on the right rather than
   the left.
 
-## Resources
+The original code can be found [here](https://github.com/google-research/bigbird).
+
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Question answering task guide](../tasks/question_answering)

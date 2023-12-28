@@ -25,12 +25,12 @@ The abstract from the paper is the following:
 
 *Large language models, which are often trained for hundreds of thousands of compute days, have shown remarkable capabilities for zero- and few-shot learning. Given their computational cost, these models are difficult to replicate without significant capital. For the few that are available through APIs, no access is granted to the full model weights, making them difficult to study. We present Open Pre-trained Transformers (OPT), a suite of decoder-only pre-trained transformers ranging from 125M to 175B parameters, which we aim to fully and responsibly share with interested researchers. We show that OPT-175B is comparable to GPT-3, while requiring only 1/7th the carbon footprint to develop. We are also releasing our logbook detailing the infrastructure challenges we faced, along with code for experimenting with all of the released models.*
 
-This model was contributed by [Arthur Zucker](https://huggingface.co/ArthurZ), [Younes Belkada](https://huggingface.co/ybelkada), and [Patrick Von Platen](https://huggingface.co/patrickvonplaten).
-The original code can be found [here](https://github.com/facebookresearch/metaseq).
-
 Tips:
 - OPT has the same architecture as [`BartDecoder`].
 - Contrary to GPT2, OPT adds the EOS token `</s>` to the beginning of every prompt.
+
+This model was contributed by [Arthur Zucker](https://huggingface.co/ArthurZ), [Younes Belkada](https://huggingface.co/ybelkada), and [Patrick Von Platen](https://huggingface.co/patrickvonplaten).
+The original code can be found [here](https://github.com/facebookresearch/metaseq).
 
 ## Resources
 
@@ -66,9 +66,6 @@ The resource should ideally demonstrate something new instead of duplicating an 
 
 [[autodoc]] OPTConfig
 
-<frameworkcontent>
-<pt>
-
 ## OPTModel
 
 [[autodoc]] OPTModel
@@ -78,19 +75,6 @@ The resource should ideally demonstrate something new instead of duplicating an 
 
 [[autodoc]] OPTForCausalLM
     - forward
-
-## OPTForSequenceClassification
-
-[[autodoc]] OPTForSequenceClassification
-    - forward
-
-## OPTForQuestionAnswering
-
-[[autodoc]] OPTForQuestionAnswering
-    - forward
-
-</pt>
-<tf>
 
 ## TFOPTModel
 
@@ -102,18 +86,23 @@ The resource should ideally demonstrate something new instead of duplicating an 
 [[autodoc]] TFOPTForCausalLM
     - call
 
-</tf>
-<jax>
+## OPTForSequenceClassification
+
+[[autodoc]] OPTForSequenceClassification
+    - forward
+
+## OPTForQuestionAnswering
+
+[[autodoc]] OPTForQuestionAnswering
+    - forward
 
 ## FlaxOPTModel
 
 [[autodoc]] FlaxOPTModel
     - __call__
 
+
 ## FlaxOPTForCausalLM
 
 [[autodoc]] FlaxOPTForCausalLM
     - __call__
-
-</jax>
-</frameworkcontent>

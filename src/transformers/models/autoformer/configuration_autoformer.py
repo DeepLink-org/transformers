@@ -131,7 +131,6 @@ class AutoformerConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "autoformer"
     attribute_map = {
         "hidden_size": "d_model",

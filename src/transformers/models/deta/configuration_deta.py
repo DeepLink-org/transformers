@@ -124,7 +124,6 @@ class DetaConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "deta"
     attribute_map = {
         "hidden_size": "d_model",

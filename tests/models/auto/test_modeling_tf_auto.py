@@ -211,8 +211,6 @@ class TFAutoModelTest(unittest.TestCase):
         config = copy.deepcopy(model.config)
         config.architectures = ["FunnelBaseModel"]
         model = TFAutoModel.from_config(config)
-        model.build()
-
         self.assertIsInstance(model, TFFunnelBaseModel)
 
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -247,10 +245,7 @@ class TFAutoModelTest(unittest.TestCase):
                     # Now that the config is registered, it can be used as any other config with the auto-API
                     tiny_config = BertModelTester(self).get_config()
                     config = NewModelConfig(**tiny_config.to_dict())
-
                     model = auto_class.from_config(config)
-                    model.build()
-
                     self.assertIsInstance(model, TFNewModel)
 
                     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -301,14 +296,14 @@ class TFAutoModelTest(unittest.TestCase):
         _ = TFAutoModel.from_pretrained("hf-internal-testing/tiny-random-bert")
         with RequestCounter() as counter:
             _ = TFAutoModel.from_pretrained("hf-internal-testing/tiny-random-bert")
-        self.assertEqual(counter["GET"], 0)
-        self.assertEqual(counter["HEAD"], 1)
-        self.assertEqual(counter.total_calls, 1)
+            self.assertEqual(counter.get_request_count, 0)
+            self.assertEqual(counter.head_request_count, 1)
+            self.assertEqual(counter.other_request_count, 0)
 
         # With a sharded checkpoint
         _ = TFAutoModel.from_pretrained("ArthurZ/tiny-random-bert-sharded")
         with RequestCounter() as counter:
             _ = TFAutoModel.from_pretrained("ArthurZ/tiny-random-bert-sharded")
-        self.assertEqual(counter["GET"], 0)
-        self.assertEqual(counter["HEAD"], 1)
-        self.assertEqual(counter.total_calls, 1)
+            self.assertEqual(counter.get_request_count, 0)
+            self.assertEqual(counter.head_request_count, 1)
+            self.assertEqual(counter.other_request_count, 0)

@@ -104,7 +104,6 @@ class LongformerConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "longformer"
 
     def __init__(

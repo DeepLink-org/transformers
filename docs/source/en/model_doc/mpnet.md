@@ -37,14 +37,14 @@ down-streaming tasks (GLUE, SQuAD, etc). Experimental results show that MPNet ou
 margin, and achieves better results on these tasks compared with previous state-of-the-art pre-trained methods (e.g.,
 BERT, XLNet, RoBERTa) under the same model setting.*
 
+Tips:
+
+- MPNet doesn't have `token_type_ids`, you don't need to indicate which token belongs to which segment. just
+  separate your segments with the separation token `tokenizer.sep_token` (or `[sep]`).
+
 The original code can be found [here](https://github.com/microsoft/MPNet).
 
-## Usage tips
-
-MPNet doesn't have `token_type_ids`, you don't need to indicate which token belongs to which segment. Just 
-separate your segments with the separation token `tokenizer.sep_token` (or `[sep]`).
-
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -67,9 +67,6 @@ separate your segments with the separation token `tokenizer.sep_token` (or `[sep
 ## MPNetTokenizerFast
 
 [[autodoc]] MPNetTokenizerFast
-
-<frameworkcontent>
-<pt>
 
 ## MPNetModel
 
@@ -101,9 +98,6 @@ separate your segments with the separation token `tokenizer.sep_token` (or `[sep
 [[autodoc]] MPNetForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFMPNetModel
 
 [[autodoc]] TFMPNetModel
@@ -133,6 +127,3 @@ separate your segments with the separation token `tokenizer.sep_token` (or `[sep
 
 [[autodoc]] TFMPNetForQuestionAnswering
     - call
-
-</tf>
-</frameworkcontent>

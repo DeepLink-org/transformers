@@ -1012,7 +1012,7 @@ class TransfoXLLMHeadModel(TransfoXLPreTrainedModel):
 
         if not self.trainer_compatible:
             warnings.warn(
-                "The output of TransfoXL will be updated in v5 to support a single loss as first argument. In order "
+                "The output of TransfoXL will be updated in v5 to support a single loss as first argument. In order"
                 "to use that updated output, please specify `trainer_compatible=True` as your configuration"
                 " attribute.",
                 DeprecationWarning,
@@ -1247,7 +1247,7 @@ class TransfoXLForSequenceClassification(TransfoXLPreTrainedModel):
             sequence_lengths = -1
         else:
             if input_ids is not None:
-                sequence_lengths = (torch.eq(input_ids, self.config.pad_token_id).int().argmax(-1) - 1).to(
+                sequence_lengths = (torch.eq(input_ids, self.config.pad_token_id).long().argmax(-1) - 1).to(
                     logits.device
                 )
             else:

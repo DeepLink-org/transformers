@@ -151,17 +151,11 @@ were contributed by [ydshieh](https://github.com/ydshieh).
 
 [[autodoc]] VisionEncoderDecoderConfig
 
-<frameworkcontent>
-<pt>
-
 ## VisionEncoderDecoderModel
 
 [[autodoc]] VisionEncoderDecoderModel
     - forward
     - from_encoder_decoder_pretrained
-
-</pt>
-<tf>
 
 ## TFVisionEncoderDecoderModel
 
@@ -169,14 +163,8 @@ were contributed by [ydshieh](https://github.com/ydshieh).
     - call
     - from_encoder_decoder_pretrained
 
-</tf>
-<jax>
-
 ## FlaxVisionEncoderDecoderModel
 
 [[autodoc]] FlaxVisionEncoderDecoderModel
     - __call__
     - from_encoder_decoder_pretrained
-
-</jax>
-</frameworkcontent>

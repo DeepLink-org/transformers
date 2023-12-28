@@ -133,7 +133,6 @@ class InformerConfig(PretrainedConfig):
     >>> # Accessing the model configuration
     >>> configuration = model.config
     ```"""
-
     model_type = "informer"
     attribute_map = {
         "hidden_size": "d_model",

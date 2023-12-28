@@ -41,10 +41,7 @@ sequence as part of the sparse attention mechanism. The proposed sparse attentio
 BigBird drastically improves performance on various NLP tasks such as question answering and summarization. We also
 propose novel applications to genomics data.*
 
-This model was contributed by [vasudevgupta](https://huggingface.co/vasudevgupta). The original code can be found
-[here](https://github.com/google-research/bigbird).
-
-## Usage tips
+Tips:
 
 - For an in-detail explanation on how BigBird's attention works, see [this blog post](https://huggingface.co/blog/big-bird).
 - BigBird comes with 2 implementations: **original_full** & **block_sparse**. For the sequence length < 1024, using
@@ -56,8 +53,10 @@ This model was contributed by [vasudevgupta](https://huggingface.co/vasudevgupta
 - BigBird is a model with absolute position embeddings so it's usually advised to pad the inputs on the right rather than
   the left.
 
+This model was contributed by [vasudevgupta](https://huggingface.co/vasudevgupta). The original code can be found
+[here](https://github.com/google-research/bigbird).
 
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -85,9 +84,6 @@ This model was contributed by [vasudevgupta](https://huggingface.co/vasudevgupta
 ## BigBird specific outputs
 
 [[autodoc]] models.big_bird.modeling_big_bird.BigBirdForPreTrainingOutput
-
-<frameworkcontent>
-<pt>
 
 ## BigBirdModel
 
@@ -129,9 +125,6 @@ This model was contributed by [vasudevgupta](https://huggingface.co/vasudevgupta
 [[autodoc]] BigBirdForQuestionAnswering
     - forward
 
-</pt>
-<jax>
-
 ## FlaxBigBirdModel
 
 [[autodoc]] FlaxBigBirdModel
@@ -171,8 +164,3 @@ This model was contributed by [vasudevgupta](https://huggingface.co/vasudevgupta
 
 [[autodoc]] FlaxBigBirdForQuestionAnswering
     - __call__
-
-</jax>
-</frameworkcontent>
-
-

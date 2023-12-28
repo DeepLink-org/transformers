@@ -33,7 +33,9 @@ This allows us to draw upon the simplicity and scalability of the Transformer ar
  Decision Transformer matches or exceeds the performance of state-of-the-art model-free offline RL baselines on 
  Atari, OpenAI Gym, and Key-to-Door tasks.*
 
-This version of the model is for tasks where the state is a vector.
+Tips:
+
+This version of the model is for tasks where the state is a vector, image-based states will come soon.
 
 This model was contributed by [edbeeching](https://huggingface.co/edbeeching). The original code can be found [here](https://github.com/kzl/decision-transformer).
 

@@ -50,9 +50,7 @@ using 30x more compute) on the GLUE natural language understanding benchmark. Ou
 where it performs comparably to RoBERTa and XLNet while using less than 1/4 of their compute and outperforms them when
 using the same amount of compute.*
 
-This model was contributed by [lysandre](https://huggingface.co/lysandre). The original code can be found [here](https://github.com/google-research/electra).
-
-## Usage tips
+Tips:
 
 - ELECTRA is the pretraining approach, therefore there is nearly no changes done to the underlying model: BERT. The
   only change is the separation of the embedding size and the hidden size: the embedding size is generally smaller,
@@ -68,7 +66,9 @@ This model was contributed by [lysandre](https://huggingface.co/lysandre). The o
   [`ElectraForPreTraining`] model (the classification head will be randomly initialized as it
   doesn't exist in the generator).
 
-## Resources
+This model was contributed by [lysandre](https://huggingface.co/lysandre). The original code can be found [here](https://github.com/google-research/electra).
+
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -94,9 +94,6 @@ This model was contributed by [lysandre](https://huggingface.co/lysandre). The o
 [[autodoc]] models.electra.modeling_electra.ElectraForPreTrainingOutput
 
 [[autodoc]] models.electra.modeling_tf_electra.TFElectraForPreTrainingOutput
-
-<frameworkcontent>
-<pt>
 
 ## ElectraModel
 
@@ -138,9 +135,6 @@ This model was contributed by [lysandre](https://huggingface.co/lysandre). The o
 [[autodoc]] ElectraForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFElectraModel
 
 [[autodoc]] TFElectraModel
@@ -175,9 +169,6 @@ This model was contributed by [lysandre](https://huggingface.co/lysandre). The o
 
 [[autodoc]] TFElectraForQuestionAnswering
     - call
-
-</tf>
-<jax>
 
 ## FlaxElectraModel
 
@@ -218,6 +209,3 @@ This model was contributed by [lysandre](https://huggingface.co/lysandre). The o
 
 [[autodoc]] FlaxElectraForQuestionAnswering
     - __call__
-
-</jax>
-</frameworkcontent>

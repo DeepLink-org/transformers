@@ -23,7 +23,7 @@ causal language model trained on [the Pile](https://pile.eleuther.ai/) dataset.
 
 This model was contributed by [Stella Biderman](https://huggingface.co/stellaathena).
 
-## Usage tips
+Tips:
 
 - To load [GPT-J](https://huggingface.co/EleutherAI/gpt-j-6B) in float32 one would need at least 2x model size
   RAM: 1x for initial weights and another 1x to load the checkpoint. So for GPT-J it would take at least 48GB
@@ -56,7 +56,7 @@ This model was contributed by [Stella Biderman](https://huggingface.co/stellaath
   size, the tokenizer for [GPT-J](https://huggingface.co/EleutherAI/gpt-j-6B) contains 143 extra tokens
   `<|extratoken_1|>... <|extratoken_143|>`, so the `vocab_size` of tokenizer also becomes 50400.
 
-## Usage examples
+### Generation
 
 The [`~generation.GenerationMixin.generate`] method can be used to generate text using GPT-J
 model.
@@ -138,9 +138,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 [[autodoc]] GPTJConfig
     - all
 
-<frameworkcontent>
-<pt>
-
 ## GPTJModel
 
 [[autodoc]] GPTJModel
@@ -160,9 +157,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 
 [[autodoc]] GPTJForQuestionAnswering
     - forward
-
-</pt>
-<tf>
 
 ## TFGPTJModel
 
@@ -184,9 +178,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 [[autodoc]] TFGPTJForQuestionAnswering
     - call
 
-</tf>
-<jax>
-
 ## FlaxGPTJModel
 
 [[autodoc]] FlaxGPTJModel
@@ -196,5 +187,3 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 
 [[autodoc]] FlaxGPTJForCausalLM
     - __call__
-</jax>
-</frameworkcontent>

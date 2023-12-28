@@ -29,9 +29,7 @@ on a downstream task of Vietnamese text summarization show that in both automati
 outperforms the strong baseline mBART and improves the state-of-the-art. We release BARTpho to facilitate future
 research and applications of generative Vietnamese NLP tasks.*
 
-This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The original code can be found [here](https://github.com/VinAIResearch/BARTpho).
-
-## Usage example
+Example of use:
 
 ```python
 >>> import torch
@@ -56,7 +54,7 @@ This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The o
 >>> features = bartpho(**input_ids)
 ```
 
-## Usage tips
+Tips:
 
 - Following mBART, BARTpho uses the "large" architecture of BART with an additional layer-normalization layer on top of
   both the encoder and decoder. Thus, usage examples in the [documentation of BART](bart), when adapting to use
@@ -80,6 +78,8 @@ This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The o
   extracted from the pre-trained SentencePiece model "vocab_file" that is available from the multilingual XLM-RoBERTa.
   Other languages, if employing this pre-trained multilingual SentencePiece model "vocab_file" for subword
   segmentation, can reuse BartphoTokenizer with their own language-specialized "monolingual_vocab_file".
+
+This model was contributed by [dqnguyen](https://huggingface.co/dqnguyen). The original code can be found [here](https://github.com/VinAIResearch/BARTpho).
 
 ## BartphoTokenizer
 

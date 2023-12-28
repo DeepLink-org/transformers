@@ -56,9 +56,6 @@ The original code can be found [here](https://github.com/snap-research/Efficient
 [[autodoc]] EfficientFormerImageProcessor
     - preprocess
 
-<frameworkcontent>
-<pt>
-
 ## EfficientFormerModel
 
 [[autodoc]] EfficientFormerModel
@@ -74,9 +71,6 @@ The original code can be found [here](https://github.com/snap-research/Efficient
 [[autodoc]] EfficientFormerForImageClassificationWithTeacher
     - forward
 
-</pt>
-<tf>
-
 ## TFEfficientFormerModel
 
 [[autodoc]] TFEfficientFormerModel
@@ -91,6 +85,3 @@ The original code can be found [here](https://github.com/snap-research/Efficient
 
 [[autodoc]] TFEfficientFormerForImageClassificationWithTeacher
     - call
-
-</tf>
-</frameworkcontent>

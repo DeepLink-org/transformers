@@ -40,11 +40,7 @@ achieve SOTA results on the WikiText103 (10.8 compared to SOTA perplexity of 15.
 accuracy of 63.2%) datasets. Our BERT model achieves SOTA results on the RACE dataset (90.9% compared to SOTA accuracy
 of 89.4%).*
 
-This model was contributed by [jdemouth](https://huggingface.co/jdemouth). The original code can be found [here](https://github.com/NVIDIA/Megatron-LM). 
-That repository contains a multi-GPU and multi-node implementation of the Megatron Language models. In particular, it 
-contains a hybrid model parallel approach using "tensor parallel" and "pipeline parallel" techniques.
-
-## Usage tips
+Tips:
 
 We have provided pretrained [GPT2-345M](https://ngc.nvidia.com/catalog/models/nvidia:megatron_lm_345m) checkpoints
 for use to evaluate or finetuning downstream tasks.
@@ -69,9 +65,7 @@ The following command allows you to do the conversion. We assume that the folder
 python3 $PATH_TO_TRANSFORMERS/models/megatron_gpt2/convert_megatron_gpt2_checkpoint.py megatron_gpt2_345m_v0_0.zip
 ```
 
-<Tip> 
+This model was contributed by [jdemouth](https://huggingface.co/jdemouth). The original code can be found [here](https://github.com/NVIDIA/Megatron-LM). That repository contains a multi-GPU and multi-node implementation of the
+Megatron Language models. In particular, it contains a hybrid model parallel approach using "tensor parallel" and
+"pipeline parallel" techniques.
 
- MegatronGPT2 architecture is the same as OpenAI GPT-2 . Refer to [GPT-2 documentation](gpt2) for information on 
- configuration classes and their parameters.  
-
- </Tip>

@@ -50,7 +50,7 @@ This model was contributed by [formiel](https://huggingface.co/formiel). The ori
 Tips:
 - Like RoBERTa, without the sentence ordering prediction (so just trained on the MLM objective).
 
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -65,9 +65,6 @@ Tips:
 ## FlaubertTokenizer
 
 [[autodoc]] FlaubertTokenizer
-
-<frameworkcontent>
-<pt>
 
 ## FlaubertModel
 
@@ -104,9 +101,6 @@ Tips:
 [[autodoc]] FlaubertForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFFlaubertModel
 
 [[autodoc]] TFFlaubertModel
@@ -136,9 +130,3 @@ Tips:
 
 [[autodoc]] TFFlaubertForQuestionAnsweringSimple
     - call
-
-</tf>
-</frameworkcontent>
-
-
-

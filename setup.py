@@ -99,6 +99,7 @@ _deps = [
     "accelerate>=0.20.3",
     "av==9.2.0",  # Latest version of PyAV (10.0.0) has issues with audio stream.
     "beautifulsoup4",
+    "black~=23.1",
     "codecarbon==1.2.0",
     "cookiecutter==1.7.3",
     "dataclasses",
@@ -108,16 +109,16 @@ _deps = [
     "diffusers",
     "dill<0.3.5",
     "evaluate>=0.2.0",
+    "fairscale>0.3",
     "faiss-cpu",
     "fastapi",
     "filelock",
     "flax>=0.4.1,<=0.7.0",
-    "fsspec<2023.10.0",
     "ftfy",
     "fugashi>=1.0",
     "GitPython<3.1.19",
     "hf-doc-builder>=0.3.0",
-    "huggingface-hub>=0.19.3,<1.0",
+    "huggingface-hub>=0.15.1,<1.0",
     "importlib_metadata",
     "ipadic>=1.0.0,<2.0",
     "isort>=5.5.4",
@@ -125,8 +126,6 @@ _deps = [
     "jaxlib>=0.4.1,<=0.4.13",
     "jieba",
     "kenlm",
-    # Keras pin - this is to make sure Keras 3 doesn't destroy us. Remove or change when we have proper support.
-    "keras<2.16",
     "keras-nlp>=0.3.1",
     "librosa",
     "nltk",
@@ -155,7 +154,7 @@ _deps = [
     "rhoknp>=1.1.0,<1.3.1",
     "rjieba",
     "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1",
-    "ruff>=0.1.5,<=0.2",
+    "ruff>=0.0.241,<=0.0.259",
     "sacrebleu>=1.4.12,<2.0.0",
     "sacremoses",
     "safetensors>=0.3.1",
@@ -166,15 +165,14 @@ _deps = [
     "starlette",
     "sudachipy>=0.6.6",
     "sudachidict_core>=20220729",
-    "tensorboard",
     # TensorFlow pin. When changing this value, update examples/tensorflow/_tests_requirements.txt accordingly
-    "tensorflow-cpu>=2.6,<2.16",
-    "tensorflow>=2.6,<2.16",
-    "tensorflow-text<2.16",
+    "tensorflow-cpu>=2.6,<2.15",
+    "tensorflow>=2.6,<2.15",
+    "tensorflow-text<2.15",
     "tf2onnx",
     "timeout-decorator",
     "timm",
-    "tokenizers>=0.14,<0.19",
+    "tokenizers>=0.11.1,!=0.11.3,<0.14",
     "torch>=1.10,!=1.12.0",
     "torchaudio",
     "torchvision",
@@ -277,6 +275,7 @@ extras["modelcreation"] = deps_list("cookiecutter")
 
 extras["sagemaker"] = deps_list("sagemaker")
 extras["deepspeed"] = deps_list("deepspeed") + extras["accelerate"]
+extras["fairscale"] = deps_list("fairscale")
 extras["optuna"] = deps_list("optuna")
 extras["ray"] = deps_list("ray[tune]")
 extras["sigopt"] = deps_list("sigopt")
@@ -309,7 +308,7 @@ extras["testing"] = (
         "dill",
         "evaluate",
         "pytest-timeout",
-        "ruff",
+        "black",
         "sacrebleu",
         "rouge-score",
         "nltk",
@@ -319,8 +318,6 @@ extras["testing"] = (
         "sacremoses",
         "rjieba",
         "beautifulsoup4",
-        "tensorboard",
-        "pydantic",
     )
     + extras["retrieval"]
     + extras["modelcreation"]
@@ -328,7 +325,7 @@ extras["testing"] = (
 
 extras["deepspeed-testing"] = extras["deepspeed"] + extras["testing"] + extras["optuna"] + extras["sentencepiece"]
 
-extras["quality"] = deps_list("datasets", "isort", "ruff", "GitPython", "hf-doc-builder", "urllib3")
+extras["quality"] = deps_list("black", "datasets", "isort", "ruff", "GitPython", "hf-doc-builder", "urllib3")
 
 extras["all"] = (
     extras["tf"]
@@ -428,7 +425,7 @@ install_requires = [
 
 setup(
     name="transformers",
-    version="4.36.0.dev0",  # expected format is one of x.y.z.dev0, or x.y.z.rc1 or x.y.z (no to dashes, yes to dots)
+    version="4.34.0.dev0",  # expected format is one of x.y.z.dev0, or x.y.z.rc1 or x.y.z (no to dashes, yes to dots)
     author="The Hugging Face team (past and future) with the help of all our contributors (https://github.com/huggingface/transformers/graphs/contributors)",
     author_email="transformers@huggingface.co",
     description="State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow",

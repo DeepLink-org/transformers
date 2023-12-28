@@ -891,10 +891,6 @@ class T5ModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMixin, 
     def test_disk_offload(self):
         pass
 
-    @unittest.skip("Does not support conversations.")
-    def test_pipeline_conversational(self):
-        pass
-
 
 class T5EncoderOnlyModelTester:
     def __init__(
@@ -1036,10 +1032,6 @@ class T5EncoderOnlyModelTest(ModelTesterMixin, unittest.TestCase):
         config_and_inputs = self.model_tester.prepare_config_and_inputs()
         self.model_tester.create_and_check_model_fp16_forward(*config_and_inputs)
 
-    @unittest.skip("Test does not fail individually but fails on the CI @ArthurZucker looking into it")
-    def test_assisted_decoding_sample(self):
-        pass
-
 
 def use_task_specific_params(model, task):
     model.config.update(model.config.task_specific_params[task])
@@ -1054,30 +1046,15 @@ class T5ModelFp16Tests(unittest.TestCase):
         r"""
         A test to check whether the argument `keep_in_fp32_modules` correctly does its job
         """
-        orig_import = __import__
-        accelerate_mock = unittest.mock.Mock()
-
-        # mock import of accelerate
-        def import_accelerate_mock(name, *args, **kwargs):
-            if name == "accelerate":
-                if accelerate_available:
-                    return accelerate_mock
-                else:
-                    raise ImportError
-            return orig_import(name, *args, **kwargs)
-
         # Load without using `accelerate`
-        with unittest.mock.patch("builtins.__import__", side_effect=import_accelerate_mock):
-            accelerate_available = False
+        model = T5ForConditionalGeneration.from_pretrained("t5-small", torch_dtype=torch.float16)
+        self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wo.weight.dtype == torch.float32)
+        self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wi.weight.dtype == torch.float16)
 
-            model = T5ForConditionalGeneration.from_pretrained("t5-small", torch_dtype=torch.float16)
-            self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wo.weight.dtype == torch.float32)
-            self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wi.weight.dtype == torch.float16)
-
-            # Load without in bf16
-            model = T5ForConditionalGeneration.from_pretrained("t5-small", torch_dtype=torch.bfloat16)
-            self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wo.weight.dtype == torch.bfloat16)
-            self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wi.weight.dtype == torch.bfloat16)
+        # Load without in bf16
+        model = T5ForConditionalGeneration.from_pretrained("t5-small", torch_dtype=torch.bfloat16)
+        self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wo.weight.dtype == torch.bfloat16)
+        self.assertTrue(model.decoder.block[0].layer[2].DenseReluDense.wi.weight.dtype == torch.bfloat16)
 
         # Load using `accelerate` in bf16
         model = T5ForConditionalGeneration.from_pretrained("t5-small", torch_dtype=torch.bfloat16, device_map="auto")

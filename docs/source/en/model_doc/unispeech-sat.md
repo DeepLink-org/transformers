@@ -37,10 +37,7 @@ state-of-the-art performance in universal representation learning, especially fo
 tasks. An ablation study is performed verifying the efficacy of each proposed method. Finally, we scale up training
 dataset to 94 thousand hours public audio data and achieve further performance improvement in all SUPERB tasks.*
 
-This model was contributed by [patrickvonplaten](https://huggingface.co/patrickvonplaten). The Authors' code can be
-found [here](https://github.com/microsoft/UniSpeech/tree/main/UniSpeech-SAT).
-
-## Usage tips
+Tips:
 
 - UniSpeechSat is a speech model that accepts a float array corresponding to the raw waveform of the speech signal.
   Please use [`Wav2Vec2Processor`] for the feature extraction.
@@ -48,7 +45,10 @@ found [here](https://github.com/microsoft/UniSpeech/tree/main/UniSpeech-SAT).
   decoded using [`Wav2Vec2CTCTokenizer`].
 - UniSpeechSat performs especially well on speaker verification, speaker identification, and speaker diarization tasks.
 
-## Resources
+This model was contributed by [patrickvonplaten](https://huggingface.co/patrickvonplaten). The Authors' code can be
+found [here](https://github.com/microsoft/UniSpeech/tree/main/UniSpeech-SAT).
+
+## Documentation resources
 
 - [Audio classification task guide](../tasks/audio_classification)
 - [Automatic speech recognition task guide](../tasks/asr)

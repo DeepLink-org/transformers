@@ -44,12 +44,7 @@ approach on a wide range of benchmarks for natural language understanding. Our g
 discriminatively trained models that use architectures specifically crafted for each task, significantly improving upon
 the state of the art in 9 out of the 12 tasks studied.*
 
-[Write With Transformer](https://transformer.huggingface.co/doc/gpt) is a webapp created and hosted by Hugging Face
-showcasing the generative capabilities of several models. GPT is one of them.
-
-This model was contributed by [thomwolf](https://huggingface.co/thomwolf). The original code can be found [here](https://github.com/openai/finetune-transformer-lm).
-
-## Usage tips
+Tips:
 
 - GPT is a model with absolute position embeddings so it's usually advised to pad the inputs on the right rather than
   the left.
@@ -57,6 +52,10 @@ This model was contributed by [thomwolf](https://huggingface.co/thomwolf). The o
   token in a sequence. Leveraging this feature allows GPT-2 to generate syntactically coherent text as it can be
   observed in the *run_generation.py* example script.
 
+[Write With Transformer](https://transformer.huggingface.co/doc/gpt) is a webapp created and hosted by Hugging Face
+showcasing the generative capabilities of several models. GPT is one of them.
+
+This model was contributed by [thomwolf](https://huggingface.co/thomwolf). The original code can be found [here](https://github.com/openai/finetune-transformer-lm).
 
 Note:
 
@@ -117,9 +116,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 
 [[autodoc]] models.openai.modeling_tf_openai.TFOpenAIGPTDoubleHeadsModelOutput
 
-<frameworkcontent>
-<pt>
-
 ## OpenAIGPTModel
 
 [[autodoc]] OpenAIGPTModel
@@ -140,9 +136,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 [[autodoc]] OpenAIGPTForSequenceClassification
     - forward
 
-</pt>
-<tf>
-
 ## TFOpenAIGPTModel
 
 [[autodoc]] TFOpenAIGPTModel
@@ -162,6 +155,3 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 
 [[autodoc]] TFOpenAIGPTForSequenceClassification
     - call
-
-</tf>
-</frameworkcontent>

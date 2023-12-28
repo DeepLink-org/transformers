@@ -44,14 +44,12 @@ ConvBERT significantly outperforms BERT and its variants in various downstream t
 fewer model parameters. Remarkably, ConvBERTbase model achieves 86.4 GLUE score, 0.7 higher than ELECTRAbase, while
 using less than 1/4 training cost. Code and pre-trained models will be released.*
 
+ConvBERT training tips are similar to those of BERT.
+
 This model was contributed by [abhishek](https://huggingface.co/abhishek). The original implementation can be found
 here: https://github.com/yitu-opensource/ConvBert
 
-## Usage tips
-
-ConvBERT training tips are similar to those of BERT. For usage tips refer to [BERT documentation](bert).
-
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -74,9 +72,6 @@ ConvBERT training tips are similar to those of BERT. For usage tips refer to [BE
 ## ConvBertTokenizerFast
 
 [[autodoc]] ConvBertTokenizerFast
-
-<frameworkcontent>
-<pt>
 
 ## ConvBertModel
 
@@ -108,9 +103,6 @@ ConvBERT training tips are similar to those of BERT. For usage tips refer to [BE
 [[autodoc]] ConvBertForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFConvBertModel
 
 [[autodoc]] TFConvBertModel
@@ -140,6 +132,3 @@ ConvBERT training tips are similar to those of BERT. For usage tips refer to [BE
 
 [[autodoc]] TFConvBertForQuestionAnswering
     - call
-
-</tf>
-</frameworkcontent>

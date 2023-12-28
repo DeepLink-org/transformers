@@ -34,14 +34,14 @@ Transformer representations to be more general and more transferable to other ta
 findings, we are able to train models that achieve strong performance on the XTREME benchmark without increasing the
 number of parameters at the fine-tuning stage.*
 
-## Usage tips
+Tips:
 
 For fine-tuning, RemBERT can be thought of as a bigger version of mBERT with an ALBERT-like factorization of the
 embedding layer. The embeddings are not tied in pre-training, in contrast with BERT, which enables smaller input
 embeddings (preserved during fine-tuning) and bigger output embeddings (discarded at fine-tuning). The tokenizer is
 also similar to the Albert one rather than the BERT one.
 
-## Resources
+## Documentation resources
 
 - [Text classification task guide](../tasks/sequence_classification)
 - [Token classification task guide](../tasks/token_classification)
@@ -69,9 +69,6 @@ also similar to the Albert one rather than the BERT one.
     - get_special_tokens_mask
     - create_token_type_ids_from_sequences
     - save_vocabulary
-
-<frameworkcontent>
-<pt>
 
 ## RemBertModel
 
@@ -108,9 +105,6 @@ also similar to the Albert one rather than the BERT one.
 [[autodoc]] RemBertForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFRemBertModel
 
 [[autodoc]] TFRemBertModel
@@ -145,6 +139,3 @@ also similar to the Albert one rather than the BERT one.
 
 [[autodoc]] TFRemBertForQuestionAnswering
     - call
-
-</tf>
-</frameworkcontent>

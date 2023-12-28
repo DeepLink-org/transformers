@@ -46,14 +46,16 @@ languages at scale. Finally, we show, for the first time, the possibility of mul
 per-language performance; XLM-Ris very competitive with strong monolingual models on the GLUE and XNLI benchmarks. We
 will make XLM-R code, data, and models publicly available.*
 
-This model was contributed by [stefan-it](https://huggingface.co/stefan-it). The original code can be found [here](https://github.com/pytorch/fairseq/tree/master/examples/xlmr).
-
-## Usage tips
+Tips:
 
 - XLM-RoBERTa is a multilingual model trained on 100 different languages. Unlike some XLM multilingual models, it does
   not require `lang` tensors to understand which language is used, and should be able to determine the correct
   language from the input ids.
 - Uses RoBERTa tricks on the XLM approach, but does not use the translation language modeling objective. It only uses masked language modeling on sentences coming from one language.
+- This implementation is the same as RoBERTa. Refer to the [documentation of RoBERTa](roberta) for usage examples
+  as well as the information relative to the inputs and outputs.
+
+This model was contributed by [stefan-it](https://huggingface.co/stefan-it). The original code can be found [here](https://github.com/pytorch/fairseq/tree/master/examples/xlmr).
 
 ## Resources
 
@@ -108,11 +110,6 @@ A list of official Hugging Face and community (indicated by 🌎) resources to h
 
 - A blog post on how to [Deploy Serverless XLM RoBERTa on AWS Lambda](https://www.philschmid.de/multilingual-serverless-xlm-roberta-with-huggingface).
 
-<Tip> 
-
-This implementation is the same as RoBERTa. Refer to the [documentation of RoBERTa](roberta) for usage examples as well as the information relative to the inputs and outputs.
-</Tip>
-
 ## XLMRobertaConfig
 
 [[autodoc]] XLMRobertaConfig
@@ -128,9 +125,6 @@ This implementation is the same as RoBERTa. Refer to the [documentation of RoBER
 ## XLMRobertaTokenizerFast
 
 [[autodoc]] XLMRobertaTokenizerFast
-
-<frameworkcontent>
-<pt>
 
 ## XLMRobertaModel
 
@@ -167,9 +161,6 @@ This implementation is the same as RoBERTa. Refer to the [documentation of RoBER
 [[autodoc]] XLMRobertaForQuestionAnswering
     - forward
 
-</pt>
-<tf>
-
 ## TFXLMRobertaModel
 
 [[autodoc]] TFXLMRobertaModel
@@ -205,9 +196,6 @@ This implementation is the same as RoBERTa. Refer to the [documentation of RoBER
 [[autodoc]] TFXLMRobertaForQuestionAnswering
     - call
 
-</tf>
-<jax>
-
 ## FlaxXLMRobertaModel
 
 [[autodoc]] FlaxXLMRobertaModel
@@ -242,6 +230,3 @@ This implementation is the same as RoBERTa. Refer to the [documentation of RoBER
 
 [[autodoc]] FlaxXLMRobertaForQuestionAnswering
     - __call__
-
-</jax>
-</frameworkcontent>
