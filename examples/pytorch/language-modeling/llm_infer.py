@@ -49,7 +49,7 @@ def test_infer(MODEL_PATH, model):
   print(answer)
 
 if __name__ == "__main__":
-    MODEL_PATH = "/mnt/cache/lihuayi.vendor/datasets/llama/65B"
+    MODEL_PATH = "/mnt/lustre/share_data/PAT/datasets/llama-65b-hf"
     backend = "nccl"
     rank = int(os.environ['RANK'])
     port = 29512 
